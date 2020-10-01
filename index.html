@@ -97,10 +97,10 @@
         currentX = e.clientX - initialX;
         currentY = e.clientY - initialY;
 
-        if (currentX >= 0 && currentX <= 500 - 52) {
+        if (currentX >= 0 && currentX <= redBoxElm.offsetWidth - 52) {
           xOffset = currentX;
         }
-        if (currentY >= 0 && currentY <= 500 - 52) {
+        if (currentY >= 0 && currentY <= redBoxElm.offsetHeight - 52) {
           yOffset = currentY;
         }
 

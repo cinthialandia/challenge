@@ -22,14 +22,21 @@
         background-color: red;
         border: 2px solid black;
         box-sizing: border-box;
+        position: relative;
       }
 
       .green-box {
+        position: absolute;
         background-color: green;
         width: 50px;
         height: 50px;
         border: 2px solid black;
         box-sizing: border-box;
+      }
+
+      .green-box:hover {
+        background-color: rgb(110, 199, 110);
+        cursor: move;
       }
 
       @media only screen and (max-width: 500px) {
@@ -44,5 +51,53 @@
     <div class="red-box">
       <div class="green-box">green box!</div>
     </div>
+    <script>
+      const greenBoxElm = document.querySelector(".green-box");
+      const redBoxElm = document.querySelector(".red-box");
+
+      let moving = false;
+      let currentX;
+      let currentY;
+      let initialX;
+      let initialY;
+      let xOffset = 0;
+      let yOffset = 0;
+
+      redBoxElm.addEventListener("mousedown", start, false);
+      redBoxElm.addEventListener("mouseup", end, false);
+      redBoxElm.addEventListener("mousemove", move, false);
+
+      function start(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+
+        if (e.target === greenBoxElm) {
+          moving = true;
+        }
+      }
+
+      function end(e) {
+        initialX = currentX;
+        initialY = currentY;
+
+        moving = false;
+      }
+
+      function move(e) {
+        if (!moving) {
+          return;
+        }
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+
+        xOffset = currentX;
+        yOffset = currentY;
+        console.log(xOffset);
+        console.log(yOffset);
+
+        greenBoxElm.style.top = `${yOffset}px`;
+        greenBoxElm.style.left = `${xOffset}px`;
+      }
+    </script>
   </body>
 </html>

@@ -32,11 +32,15 @@
         height: 50px;
         border: 2px solid black;
         box-sizing: border-box;
+        cursor: move;
       }
 
       .green-box:hover {
         background-color: rgb(110, 199, 110);
-        cursor: move;
+      }
+
+      .green-box.moving {
+        cursor: wait;
       }
 
       @media only screen and (max-width: 500px) {
@@ -73,6 +77,7 @@
 
         if (e.target === greenBoxElm) {
           moving = true;
+          greenBoxElm.classList.add("moving");
         }
       }
 
@@ -81,29 +86,25 @@
         initialY = currentY;
 
         moving = false;
+        greenBoxElm.classList.remove("moving");
       }
 
       function move(e) {
         if (!moving) {
           return;
         }
+
         currentX = e.clientX - initialX;
         currentY = e.clientY - initialY;
 
-        xOffset = currentX;
-        yOffset = currentY;
+        if (currentX >= 0 && currentX <= 500 - 52) {
+          xOffset = currentX;
+        }
+        if (currentY >= 0 && currentY <= 500 - 52) {
+          yOffset = currentY;
+        }
 
         console.log({ xOffset, yOffset });
-
-        if (
-          xOffset > 500 - 52 ||
-          yOffset > 500 - 52 ||
-          xOffset < 0 ||
-          yOffset < 0
-        ) {
-          end();
-          return;
-        }
 
         greenBoxElm.style.top = `${yOffset}px`;
         greenBoxElm.style.left = `${xOffset}px`;

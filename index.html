@@ -49,7 +49,7 @@
   </head>
   <body>
     <div class="red-box">
-      <div class="green-box">green box!</div>
+      <div class="green-box"></div>
     </div>
     <script>
       const greenBoxElm = document.querySelector(".green-box");
@@ -92,8 +92,18 @@
 
         xOffset = currentX;
         yOffset = currentY;
-        console.log(xOffset);
-        console.log(yOffset);
+
+        console.log({ xOffset, yOffset });
+
+        if (
+          xOffset > 500 - 52 ||
+          yOffset > 500 - 52 ||
+          xOffset < 0 ||
+          yOffset < 0
+        ) {
+          end();
+          return;
+        }
 
         greenBoxElm.style.top = `${yOffset}px`;
         greenBoxElm.style.left = `${xOffset}px`;

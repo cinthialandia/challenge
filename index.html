@@ -64,13 +64,14 @@
       let currentY;
       let initialX;
       let initialY;
-      let xOffset = 0;
-      let yOffset = 0;
+      let xOffset = redBoxElm.offsetWidth / 2 - greenBoxElm.offsetWidth / 2;
+      let yOffset = redBoxElm.offsetHeight / 2 - greenBoxElm.offsetHeight / 2;
 
       redBoxElm.addEventListener("mousedown", start, false);
       redBoxElm.addEventListener("mouseup", end, false);
       redBoxElm.addEventListener("mousemove", move, false);
 
+      renderBox();
       function start(e) {
         initialX = e.clientX - xOffset;
         initialY = e.clientY - yOffset;
@@ -106,9 +107,16 @@
 
         console.log({ xOffset, yOffset });
 
+        renderBox();
+      }
+
+      function renderBox() {
         greenBoxElm.style.top = `${yOffset}px`;
         greenBoxElm.style.left = `${xOffset}px`;
       }
+
+      // TODO: recalculte the position when red box size change
+      // TODO: show coordinates inside green box
     </script>
   </body>
 </html>
